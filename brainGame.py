@@ -3,7 +3,7 @@ import random
 
 turtle.tracer(1, 0)
 
-SIZE_X = 500
+SIZE_X = 800
 SIZE_Y = 500
 
 UP_EDGE = 250
@@ -40,8 +40,6 @@ enemy.goto((SIZE_X / 2) - SQUARE_SIZE * 2, (SIZE_Y / 2) - SQUARE_SIZE * 2)
 enemy.fillcolor("green")
 #Hide the turtle object (it's an arrow we don't need to see it)
 turtle.hideturtle()
-if snake.pos() in  (300,200):
-    quit()
 
 ## Draw a snake at the start of the game with a for loop
 ## for loop should use range() and coount up to the number of pieces
@@ -94,26 +92,45 @@ def move_enemy():
     y_pos = my_pos[1]
 
     ## Right
-    if randNum <= 25:
+    if randNum <= 15:
+        print("RIGHT")
         directionEnemy = RIGHT
-        enemy.goto(x_pos + SQUARE_SIZE, y_pos)
     ## Left
-    elif randNum <= 50 and randNum > 25:
+    elif randNum <= 50 and randNum > 15:
+        print("LEFT")
         directionEnemy = LEFT
-        enemy.goto(x_pos - SQUARE_SIZE, y_pos)
     ## Up
-    elif randNum <= 75 and randNum > 50:
+    elif randNum <= 65 and randNum > 50:
+        print("UP")
         directionEnemy = UP
-        enemy.goto(x_pos, y_pos + SQUARE_SIZE)
     ##Down
-    elif randNum <= 100 and randNum > 75:
+    elif randNum <= 100 and randNum > 65:
+        print("DOWN")
         directionEnemy = DOWN
-        enemy.goto(x_pos, y_pos - SQUARE_SIZE)
 
-    if direction == RIGHT:
+    my_pos = enemy.pos()
+    new_x_pos = my_pos[0]
+    new_y_pos = my_pos[1]
+
+    if new_x_pos >= RIGHT_EDGE:
+        directionEnemy = LEFT
+    elif new_x_pos <= LEFT_EDGE:
+        directionEnemy = RIGHT
+    elif new_y_pos >= UP_EDGE:
+        directionEnemy = DOWN
+    elif new_y_pos <= DOWN_EDGE:
+        directionEnemy = UP
+
+    print(my_pos)
+
+    if directionEnemy == RIGHT:
         enemy.goto(x_pos + SQUARE_SIZE, y_pos)
-    elif direction == LEFT:
-        
+    elif directionEnemy == LEFT:
+        enemy.goto(x_pos - SQUARE_SIZE, y_pos)
+    elif directionEnemy == UP:
+        enemy.goto(x_pos, y_pos + SQUARE_SIZE)
+    elif directionEnemy == DOWN:
+        enemy.goto(x_pos, y_pos - SQUARE_SIZE)
 
     my_pos = enemy.pos()
     enemy_pos_list.append(my_pos)
@@ -165,19 +182,15 @@ def move_snake():
     
     if direction == RIGHT:
         snake.goto(x_pos + SQUARE_SIZE, y_pos)
-        print("You moved Right!")
 
     elif direction == LEFT:
         snake.goto(x_pos - SQUARE_SIZE, y_pos)
-        print("You moved Left!")
 
     elif direction == DOWN:
         snake.goto(x_pos, y_pos - SQUARE_SIZE)
-        print("You moved Down!")
 
     elif direction == UP:
         snake.goto(x_pos, y_pos + SQUARE_SIZE)
-        print("You moved Up!")
 
     #Stamp new element and append new stamp in list
     #Remember: The snake position changed - update my_pos()
