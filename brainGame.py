@@ -26,6 +26,9 @@ stamp_list = []
 food_pos = []
 food_stamps = []
 
+enemy_pos_list = []
+enemy_stamps_list = []
+
 # Set u positions (x, y) of boxes that make up the snake
 turtle.shape("square")
 snake = turtle.clone()
@@ -82,6 +85,49 @@ LEFT = 2
 RIGHT = 3
 
 direction = UP
+directionEnemy = DOWN
+
+def move_enemy():
+    randNum = random.randint(1, 101)
+    my_pos = enemy.pos()
+    x_pos = my_pos[0]
+    y_pos = my_pos[1]
+
+    ## Right
+    if randNum <= 25:
+        directionEnemy = RIGHT
+        enemy.goto(x_pos + SQUARE_SIZE, y_pos)
+    ## Left
+    elif randNum <= 50 and randNum > 25:
+        directionEnemy = LEFT
+        enemy.goto(x_pos - SQUARE_SIZE, y_pos)
+    ## Up
+    elif randNum <= 75 and randNum > 50:
+        directionEnemy = UP
+        enemy.goto(x_pos, y_pos + SQUARE_SIZE)
+    ##Down
+    elif randNum <= 100 and randNum > 75:
+        directionEnemy = DOWN
+        enemy.goto(x_pos, y_pos - SQUARE_SIZE)
+
+    if direction == RIGHT:
+        enemy.goto(x_pos + SQUARE_SIZE, y_pos)
+    elif direction == LEFT:
+        
+
+    my_pos = enemy.pos()
+    enemy_pos_list.append(my_pos)
+
+    new_stamp = enemy.stamp()
+    enemy_stamps_list.append(new_stamp)
+    ######## SPECIAL PLACE - Remember it for Part 5
+    #pop zeroth element in pos_list to get rid of last the last
+    #piece of the tail
+    old_stamp = enemy_stamps_list.pop(0)
+    enemy.clearstamp(old_stamp)
+    enemy_pos_list.pop(0)
+        
+    turtle.ontimer(move_enemy, TIME_STEP)
 
 def up():
     global direction #snake direction is global (same everywhere)
@@ -190,6 +236,7 @@ turtle.goto(-200, -200)
 turtle.write("Brain Game", False, "left", ("helvetica", 18, "normal"))
 
 move_snake()
+move_enemy()
 
 '''
 def make_food():
