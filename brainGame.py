@@ -5,7 +5,7 @@ turtle.tracer(1, 0)
 
 SIZE_X = 500
 SIZE_Y = 500
-
+kndsfkljlkjrwanglerh.nnkd
 UP_EDGE = 250
 DOWN_EDGE = -250
 RIGHT_EDGE = 400
