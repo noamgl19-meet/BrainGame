@@ -86,27 +86,22 @@ direction = UP
 directionEnemy = DOWN
 
 def move_enemy():
-    randNum = random.randint(1, 101)
+    global directionEnemy
+    randNum = (random.random()) * 100
     my_pos = enemy.pos()
     x_pos = my_pos[0]
     y_pos = my_pos[1]
 
-    ## Right
-    if randNum <= 15:
-        print("RIGHT")
+    if randNum <= 25.0:
         directionEnemy = RIGHT
-    ## Left
-    elif randNum <= 50 and randNum > 15:
-        print("LEFT")
+    elif randNum <= 50.0 and randNum > 25.0:
         directionEnemy = LEFT
-    ## Up
-    elif randNum <= 65 and randNum > 50:
-        print("UP")
+    elif randNum <= 75.0 and randNum > 50.0:
         directionEnemy = UP
-    ##Down
-    elif randNum <= 100 and randNum > 65:
-        print("DOWN")
+    elif randNum <= 100.0 and randNum > 75.0:
         directionEnemy = DOWN
+
+    print(str(directionEnemy))
 
     my_pos = enemy.pos()
     new_x_pos = my_pos[0]
@@ -120,18 +115,19 @@ def move_enemy():
         directionEnemy = DOWN
     elif new_y_pos <= DOWN_EDGE:
         directionEnemy = UP
-
-    print(my_pos)
-
+    
     if directionEnemy == RIGHT:
         enemy.goto(x_pos + SQUARE_SIZE, y_pos)
+        
     elif directionEnemy == LEFT:
         enemy.goto(x_pos - SQUARE_SIZE, y_pos)
-    elif directionEnemy == UP:
-        enemy.goto(x_pos, y_pos + SQUARE_SIZE)
+        
     elif directionEnemy == DOWN:
         enemy.goto(x_pos, y_pos - SQUARE_SIZE)
-
+        
+    elif directionEnemy == UP:
+        enemy.goto(x_pos, y_pos + SQUARE_SIZE)
+        
     my_pos = enemy.pos()
     enemy_pos_list.append(my_pos)
 
