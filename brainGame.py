@@ -1,3 +1,4 @@
+
 import turtle
 import random
 
@@ -87,21 +88,27 @@ directionEnemy = DOWN
 
 def move_enemy():
     global directionEnemy
-    randNum = (random.random()) * 100
+    randNum = random.randint(1, 101)
     my_pos = enemy.pos()
     x_pos = my_pos[0]
     y_pos = my_pos[1]
 
-    if randNum <= 25.0:
+    ## Right
+    if randNum <= 15:
+        print("RIGHT")
         directionEnemy = RIGHT
-    elif randNum <= 50.0 and randNum > 25.0:
+    ## Left
+    elif randNum <= 50 and randNum > 15:
+        print("LEFT")
         directionEnemy = LEFT
-    elif randNum <= 75.0 and randNum > 50.0:
+    ## Up
+    elif randNum <= 65 and randNum > 50:
+        print("UP")
         directionEnemy = UP
-    elif randNum <= 100.0 and randNum > 75.0:
+    ##Down
+    elif randNum <= 100 and randNum > 65:
+        print("DOWN")
         directionEnemy = DOWN
-
-    print(str(directionEnemy))
 
     my_pos = enemy.pos()
     new_x_pos = my_pos[0]
@@ -115,19 +122,18 @@ def move_enemy():
         directionEnemy = DOWN
     elif new_y_pos <= DOWN_EDGE:
         directionEnemy = UP
-    
+
+    print(my_pos)
+
     if directionEnemy == RIGHT:
         enemy.goto(x_pos + SQUARE_SIZE, y_pos)
-        
     elif directionEnemy == LEFT:
         enemy.goto(x_pos - SQUARE_SIZE, y_pos)
-        
-    elif directionEnemy == DOWN:
-        enemy.goto(x_pos, y_pos - SQUARE_SIZE)
-        
     elif directionEnemy == UP:
         enemy.goto(x_pos, y_pos + SQUARE_SIZE)
-        
+    elif directionEnemy == DOWN:
+        enemy.goto(x_pos, y_pos - SQUARE_SIZE)
+
     my_pos = enemy.pos()
     enemy_pos_list.append(my_pos)
 
@@ -236,7 +242,7 @@ def move_snake():
         quit()
 
     if enemy.pos() == snake.pos():
-        quit()
+        quit("hey!")        
 
     
     turtle.ontimer(move_snake, TIME_STEP)
@@ -268,9 +274,6 @@ def make_food():
     foodStamp = food.stamp()
     food_stamps.append(foodStamp)
     ##3.WRITE YOUR CODE HERE: Add the food turtle's stamp to the food stamps list
-
-
-
 turtle.register_shape("trash.gif")
 food = turtle.clone()
 food.shape("trash.gif")
@@ -291,3 +294,4 @@ for this_food_pos in food_pos:
     foodStamp = food.stamp()
     food_stamps.append(foodStamp)
     '''
+
